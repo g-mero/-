@@ -1,6 +1,5 @@
 package lifegame;
 
-import java.lang.reflect.Method;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -12,7 +11,7 @@ import java.util.Scanner;
      */
 
 public class LifeGame {
-	  public static void main(String[] args) {
+	public static void main(String[] args) {
 
 	        //设置一个二维数组存储所有的格子
 	        String[][] lifeMap = new String[4][4];
@@ -36,13 +35,14 @@ public class LifeGame {
 	        System.out.println("初始状态为：");
 	        me.printLifeMap(lifeMap);
 	        System.out.println("===========");
-
+	        
+	        Scanner scan = new Scanner(System.in);
 	        int n = 0;
 	        int num = 0;//记录变化的次数
 	        while (n == 0) {
 
 	            //用point数组，记录对应位置下一轮的状态，1下一代死，2下一代继续活，3下一代复活
-	            int[] point = me.check(lifeMap, new int[16]);
+	            int[] point = me.check(lifeMap);
 
 	            //将获得下一次变化后的图形
 	            lifeMap = me.getNext(lifeMap, point).clone();
@@ -54,8 +54,12 @@ public class LifeGame {
 	            System.out.println("===========");
 
 	            System.out.println("输入0继续进行下一步，输入其他数字退出。");
-	            n = new Scanner(System.in).nextInt();
+	            if(scan.hasNextInt()) {
+	            	n = scan.nextInt();
+	            }
+	            else n = 1;
 	        }
+	        scan.close();
 	    }
 }
 
